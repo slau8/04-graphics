@@ -1,10 +1,11 @@
 import math
 
 def make_translate( x, y, z ):
-    matrix = ident(new_matrix())
+    matrix = new_matrix()
+    ident(matrix)
     move = [x, y, z, 1]
-    for r in range(len(matrix)):
-        matrix[r][3] = move[r]
+    for r in range(len(move)):
+        matrix[3][r] = move[r]
     return matrix
 
 def make_scale( x, y, z ):
@@ -14,8 +15,9 @@ def make_scale( x, y, z ):
         matrix[i][i] = scale[i]
     return matrix
 
-def make_rotX( theta ):    
-    matrix = ident(new_matrix())
+def make_rotX( theta ):
+    matrix = new_matrix()
+    ident(matrix)
     matrix[1][1] = cos(theta)
     matrix[1][2] = sin(theta) * -1
     matrix[2][1] = sin(theta)
@@ -23,7 +25,8 @@ def make_rotX( theta ):
     return matrix
 
 def make_rotY( theta ):
-    matrix = ident(new_matrix())
+    matrix = new_matrix()
+    ident(matrix)
     matrix[0][0] = cos(theta)
     matrix[0][2] = sin(theta)
     matrix[2][0] = sin(theta) * -1
@@ -31,7 +34,8 @@ def make_rotY( theta ):
     return matrix
 
 def make_rotZ( theta ):
-    matrix = ident(new_matrix())
+    matrix = new_matrix()
+    ident(matrix)
     matrix[0][0] = cos(theta)
     matrix[0][1] = sin(theta) * -1
     matrix[1][0] = sin(theta)
@@ -39,10 +43,10 @@ def make_rotZ( theta ):
     return matrix
 
 def cos(theta):
-    return math.cos(math.radians(theta))
+    return math.cos(theta * (math.pi / 180))
 
 def sin(theta):
-    return math.sin(math.radians(theta))
+    return math.sin(theta * (math.pi / 180))
 
 def print_matrix( matrix ):
     s = ''
@@ -66,7 +70,7 @@ def matrix_mult( m1, m2 ):
     for row in m2:
         #get a copy of the next point
         tmp = row[:]
-        
+
         for r in range(4):
             m2[point][r] = (m1[0][r] * tmp[0] +
                             m1[1][r] * tmp[1] +
